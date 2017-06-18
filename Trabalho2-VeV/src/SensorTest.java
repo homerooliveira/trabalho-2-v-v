@@ -2,6 +2,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import static org.junit.Assert.assertEquals;
+
 public class SensorTest {
 
 	private Sensor sensor;
@@ -13,35 +15,80 @@ public class SensorTest {
 
 	@Test
 	public void testSequence1() {
-		sensor.setAlerta();
-		boolean alerta = sensor.setAlerta();
-		Assert.assertEquals(false, alerta);
+		// Não muda de estado e começa como Desabilitado
+		boolean resetAlerta = sensor.resetAlerta();
+		assertEquals(false, resetAlerta);
+
+		// Desabilitado -> Habilitado
+		boolean setH = sensor.setH();
+		assertEquals(true, setH);
 	}
 
 	@Test
-	public void testSequence2() {
-		boolean alerta = sensor.setAlerta();
-		
-		boolean habilitado = sensor.setH();
-		Assert.assertEquals(false, alerta);
-		Assert.assertEquals(true, habilitado);
+	public void testSequence4() {
+		// Desabilitado -> Habilitado
+		boolean setH = sensor.setH();
+		assertEquals(true, setH);
+
+		// Habilitado -> Desabilitado
+		boolean resetH = sensor.resetH();
+		assertEquals(true, resetH);
+
+		//Desabilitado -> Habilitado
+		setH = sensor.setH();
+		assertEquals(true, setH);
 	}
-		
+
 	@Test
 	public void testSequence7() {
-		sensor.setH();
-		sensor.setH();
-		boolean alerta = sensor.setAlerta();
-		Assert.assertEquals(true, alerta);
+		// Desabilitado -> Habilitado
+		boolean setH = sensor.setH();
+		assertEquals(true, setH);
+
+		// Não muda de estado
+		setH = sensor.setH();
+		assertEquals(false, setH);
+
+		// Não muda de estado
+		setH = sensor.setH();
+		assertEquals(false, setH);
 	}
-	
+
 	@Test
-	public void testSequence11() {
-		sensor.setH();
-		sensor.setAlerta();
-		sensor.resetAlerta();
+	public void testSequence13(){
+		// Desabilitado -> Habilitado
+		boolean setH = sensor.setH();
+		assertEquals(true, setH);
+
+		//Habilitado -> Alerta
 		boolean alerta = sensor.setAlerta();
-		Assert.assertEquals(true, alerta);
+		assertEquals(true, alerta);
+
+		// Não muda de estado
+		setH = sensor.setH();
+		assertEquals(false, setH);
+
+		// Não muda de estado
+		setH = sensor.setH();
+		assertEquals(false, setH);
 	}
-	
+
+	@Test
+	public void testSequence16(){
+		// Desabilitado -> Habilitado
+		boolean setH = sensor.setH();
+		assertEquals(true, setH);
+
+		//Habilitado -> Alerta
+		boolean alerta = sensor.setAlerta();
+		assertEquals(true, alerta);
+
+		// Não muda de estado
+		setH = sensor.resetH();
+		assertEquals(false, setH);
+
+		// Não muda de estado
+		setH = sensor.resetH();
+		assertEquals(false, setH);
+	}
 }

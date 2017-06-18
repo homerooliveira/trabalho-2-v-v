@@ -7,8 +7,10 @@ public class Sensor {
 		alerta = false;
 	}
 
-//	bool setH() – habilita o sensor. Se o sensor já está habilitado, não altera nada e
-//	retorna false, caso contrário retorna true.
+/**
+ * 	 bool setH() – habilita o sensor. Se o sensor já está habilitado, não altera nada e
+ * 	 retorna false, caso contrário retorna true.
+ */
 	public boolean setH() {
 		if (!habilitado) {
 			habilitado = true;
@@ -25,7 +27,7 @@ public class Sensor {
 	
 //	bool getH() – retorna true se o sensor está habilitado e false caso contrário.
 	public boolean resetH() {
-		if (habilitado) {
+		if (habilitado && !alerta) {
 			habilitado = false;
 			return true;
 		}
@@ -34,7 +36,7 @@ public class Sensor {
 
 //	bool setAlerta() - se o sensor está habilitado, passa o sensor para o estado de
 //	alerta, notifica o controlador e retorna true. Se o sensor já está em alerta ou está
-//	desabilitado, não altera nada e retorna false.
+//	desabilitado, não altera nada  e retorna false.
 	public boolean setAlerta() {
 		if (!alerta && habilitado) {
 			alerta = true;
