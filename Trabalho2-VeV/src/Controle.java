@@ -1,10 +1,10 @@
 
-public class Controlator {
+public class Controle {
 	
 	private Sensor[] sensores;
 	private boolean[] valvulas;
 
-	public Controlator() {
+	public Controle() {
 		int capacidade = 2;
 		sensores = new Sensor[capacidade];
 		valvulas = new boolean[capacidade];
@@ -29,38 +29,44 @@ public class Controlator {
 		if(n < 0 && n > sensores.length - 1){
 			return false;
 		}
+
+		// Se algum sensor está habilitado
+		if (sensores[0].getAlerta() || sensores[1].getAlerta()){
+			return false;
+		}
+
 		return sensores[n-1].resetH();
 	}
 	
-//	 void alerta(n) - usado pelo sensor para avisar o controlador de que está em
+//	 void alerta(n) - usado pelo sensor para avisar o controlador de que está em
 //	alerta. O controlador deve abrir a válvula correspondente.
 	public void alerta(int n){
-		if(n >= 0 && n < sensores.length){
+		if(n > 0 && n <= sensores.length){
 			sensores[n-1].setAlerta();
 		}
 	}
-//	 void resetAlerta() - usado pelo sensor para avisar que não está mais em alerta. O
+//  void resetAlerta() - usado pelo sensor para avisar que não está mais em alerta. O
 //	controlador deve fechar a válvula correspondente.
 	public void resetAlerta(int n){
-		if(n >= 0 && n < sensores.length){
+		if(n > 0 && n <= sensores.length){
 			sensores[n-1].resetAlerta();
 		}
 	}
-//	 void open(n) – abre a válvula “n”.
+//	 void open(n) – abre a válvula “n”.
 	public void open(int n){
-		if(n >= 0 && n < valvulas.length){
+		if(n > 0 && n <= valvulas.length){
 			valvulas[n-1] = true;
 		}
 	}
 	
-//	 void fecha(n) – fecha a válvula “n”.
+//	 void fecha(n) – fecha a válvula “n”.
 	public void fecha(int n){
-		if(n >= 0 && n < valvulas.length){
+		if(n > 0 && n <= valvulas.length){
 			valvulas[n-1] = false;
 		}
 	}
 	
-//	 bool getV(n) – retorna o status da válvula “n” – true se está aberta e false caso
+//	 bool getV(n) – retorna o status da válvula “n” – true se está aberta e false caso
 //	esteja fechada.
 	public boolean getV(int n){
 		if(n < 0 && n > sensores.length - 1){
