@@ -50,7 +50,7 @@ public class Sensor {
 //	não altera nada e retorna false
 	public boolean resetAlerta() {
 		if (alerta) {
-			habilitado = true;
+			alerta = false;
 			return true;
 		}
 		return false;

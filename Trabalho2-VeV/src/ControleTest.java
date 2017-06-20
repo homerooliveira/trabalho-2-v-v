@@ -298,7 +298,10 @@ public class ControleTest {
 		boolean setH2 = controle.setH(2);
 		assertEquals(true, setH2);
 
-		// TotalHab -> AlertaTemp
+		// TotalHab -> AlertaPre
+		controle.alerta(2);
+
+		//AlertaPre -> AlertaTotal
 		controle.alerta(1);
 
 		// não muda de estado
