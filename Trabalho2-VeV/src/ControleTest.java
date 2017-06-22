@@ -6,10 +6,16 @@ import static org.junit.Assert.assertEquals;
 public class ControleTest {
 
 	private Controle controle;
+	private Sensor[] sensores;
 
 	@Before
 	public void setUp() {
-		controle = new Controle();
+		Sensor temperatura = new Sensor();
+		Sensor pressao = new Sensor();
+
+		sensores = new Sensor[] {temperatura, pressao};
+
+		controle = new Controle(sensores);
 	}
 
 	//Test Sequence 4 :	[resetAlerta(1), resetH(2)]
@@ -17,6 +23,8 @@ public class ControleTest {
 	public void TestSequence4(){
 		// Não muda de estado fica como Desabilitado
 		controle.resetAlerta(1);
+		boolean alerta = sensores[0].getAlerta();
+		assertEquals(false, alerta);
 
 		// Não muda de estado
 		boolean resetH = controle.resetH(2);
@@ -40,6 +48,8 @@ public class ControleTest {
 	public void TestSequence10(){
 		// Não muda de estado fica como Desabilitado
 		controle.alerta(1);
+		boolean alerta = sensores[0].getAlerta();
+		assertEquals(true, alerta);
 
 		// Não muda de estado
 		boolean resetH2 = controle.resetH(2);
@@ -55,6 +65,8 @@ public class ControleTest {
 
 		// Não muda de estado
 		controle.resetAlerta(1);
+		boolean alerta = sensores[0].getAlerta();
+		assertEquals(false, alerta);
 
 		// Não muda de estado
 		setH = controle.setH(1);
@@ -70,6 +82,8 @@ public class ControleTest {
 
 		// Não muda de estado
 		controle.resetAlerta(2);
+		boolean alerta = sensores[1].getAlerta();
+		assertEquals(false, alerta);
 
 		// Não muda de estado
 		boolean resetH2 = controle.resetH(2);
@@ -85,6 +99,8 @@ public class ControleTest {
 
 		// Não muda de estado
 		controle.alerta(1);
+		boolean alerta = sensores[0].getAlerta();
+		assertEquals(true, alerta);
 
 		// Não muda de estado
 		boolean resetH2 = controle.resetH(2);
@@ -132,6 +148,8 @@ public class ControleTest {
 
 		// Não muda de estado
 		controle.resetAlerta(2);
+		boolean alerta = sensores[1].getAlerta();
+		assertEquals(false, alerta);
 
 		// PressãoHab -> Desabilitado
 		boolean resetH2 = controle.resetH(2);
@@ -167,6 +185,8 @@ public class ControleTest {
 
 		// Não muda de estado
 		controle.resetAlerta(2);
+		boolean alerta = sensores[1].getAlerta();
+		assertEquals(false, alerta);
 
 		// TotalHab -> PresãoHab
 		boolean resetH1 = controle.resetH(1);
@@ -186,6 +206,8 @@ public class ControleTest {
 
 		// TotalHab -> AlertaTemp
 		controle.alerta(1);
+		boolean alerta = sensores[0].getAlerta();
+		assertEquals(true, alerta);
 
 		// não muda de estado
 		boolean resetH2 = controle.resetH(2);
@@ -209,6 +231,8 @@ public class ControleTest {
 
 		// TotalHab -> AlertaTemp
 		controle.alerta(1);
+		boolean alerta = sensores[0].getAlerta();
+		assertEquals(true, alerta);
 
 		// não muda de estado
 		boolean resetH1 = controle.resetH(1);
@@ -232,6 +256,8 @@ public class ControleTest {
 
 		// TotalHab -> AlertaTemp
 		controle.alerta(1);
+		boolean alerta = sensores[0].getAlerta();
+		assertEquals(true, alerta);
 
 		// não muda de estado
 		boolean resetH1 = controle.resetH(1);
@@ -255,9 +281,13 @@ public class ControleTest {
 
 		// TotalHab -> AlertaTemp
 		controle.alerta(1);
+		boolean alerta = sensores[0].getAlerta();
+		assertEquals(true, alerta);
 
 		// não muda de estado
 		controle.alerta(1);
+		alerta = sensores[0].getAlerta();
+		assertEquals(true, alerta);
 
 		// não muda de estado
 		setH2 = controle.setH(2);
@@ -277,6 +307,8 @@ public class ControleTest {
 
 		// TotalHab -> AlertaTemp
 		controle.alerta(1);
+		boolean alerta = sensores[0].getAlerta();
+		assertEquals(true, alerta);
 
 		// não muda de estado
 		setH1 = controle.setH(1);
@@ -300,9 +332,13 @@ public class ControleTest {
 
 		// TotalHab -> AlertaPre
 		controle.alerta(2);
+		boolean alerta = sensores[0].getAlerta();
+		assertEquals(true, alerta);
 
 		//AlertaPre -> AlertaTotal
 		controle.alerta(1);
+		alerta = sensores[0].getAlerta();
+		assertEquals(true, alerta);
 
 		// não muda de estado
 		setH2 = controle.setH(2);
@@ -322,9 +358,13 @@ public class ControleTest {
 
 		// TotalHab -> AlertaPre
 		controle.alerta(2);
+		boolean alerta = sensores[1].getAlerta();
+		assertEquals(true, alerta);
 
 		//AlertaPre -> TotalHab
 		controle.resetAlerta(2);
+		alerta = sensores[1].getAlerta();
+		assertEquals(false, alerta);
 
 		// não muda de estado
 		setH1 = controle.setH(1);
@@ -344,6 +384,8 @@ public class ControleTest {
 
 		// TotalHab -> AlertaPre
 		controle.alerta(2);
+		boolean alerta = sensores[1].getAlerta();
+		assertEquals(false, alerta);
 
 		// não muda de estado
 		boolean resetH1 = controle.resetH(1);
@@ -367,9 +409,13 @@ public class ControleTest {
 
 		// TotalHab -> AlertaTemp
 		controle.alerta(1);
+		boolean alerta1 = sensores[0].getAlerta();
+		assertEquals(true, alerta1);
 
 		// AlertaTemp -> AlertaTotal
 		controle.alerta(2);
+		boolean alerta2 = sensores[0].getAlerta();
+		assertEquals(true, alerta2);
 
 		// não muda de estado
 		setH1 = controle.setH(1);

@@ -1,12 +1,16 @@
+import java.util.Arrays;
+import java.util.Objects;
+
 public class Controle {
 
 		private Sensor[] sensores;
 		private boolean[] valvulas;
 
-		public Controle() {
-			int capacidade = 2;
-			sensores = new Sensor[capacidade];
-			valvulas = new boolean[capacidade];
+		public Controle(Sensor[] sensores) {
+			Objects.requireNonNull(sensores);
+
+			this.sensores = Arrays.copyOf(sensores, sensores.length);
+			this.valvulas = new boolean[sensores.length];
 
 			for(int i = 0; i < sensores.length; i++){
 				sensores[i] = new Sensor();
@@ -29,7 +33,7 @@ public class Controle {
 				return false;
 			}
 
-			// Se algum sensor está habilitado
+			// Se algum sensor está alerta
 			if (sensores[0].getAlerta() || sensores[1].getAlerta()){
 				return false;
 			}
@@ -52,13 +56,6 @@ public class Controle {
 				sensores[n-1].resetAlerta();
 				fecha(n-1);
 			}
-		}
-
-		public boolean getAlerta(int n){
-			if(n > 0 && n <= sensores.length){
-				return sensores[n - 1].getAlerta();
-			}
-			return false;
 		}
 
 
